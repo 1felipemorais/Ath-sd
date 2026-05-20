@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace | Links Rápidos</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --hover-bg: #334155;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            color: var(--accent);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .category {
+            margin-bottom: 35px;
+        }
+
+        .category h2 {
+            font-size: 1.2rem;
+            border-bottom: 1px solid var(--card-bg);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+
+        .link-card {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .link-card:hover {
+            background-color: var(--hover-bg);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>ATHENA SAÚDE</h1>
+            <p>Links rápidos e ferramentas de uso diário</p>
+        </header>
+
+        <!-- Categoria 1 -->
+        <section class="category">
+            <h2>Sistema MV</h2>
+            <div class="links-grid">
+                <a href="https://mvsoul.athenasaude.com.br/soul-mv/" class="link-card" target="_blank">SOUL MV</a>
+                <a href="https://mvpep.athenasaude.com.br/mvpep" class="link-card" target="_blank">MV PEP</a>
+                <a href="https://mvpep.athenasaude.com.br/mvtotemsenha/" class="link-card" target="_blank">MV TOTEM</a>
+                <a href="https://mvpep.athenasaude.com.br/mvsacr/" class="link-card" target="_blank">MV SACR</a>
+                <a href="https://mvpep.athenasaude.com.br/mvpainel/index.html" class="link-card" target="_blank">MV SACR</a>
+            </div>
+        </section>
+
+        <!-- Categoria 2 -->
+        <section class="category">
+            <h2>Gestão & Projetos</h2>
+            <div class="links-grid">
+                <a href="https://mvreport.athenasaude.com.br/report-designer/" class="link-card" target="_blank">REPORT MV</a>
+                <a href="https://mvgodash.athenasaude.com.br/GoDash/Privado/Default.aspx?chave=4%2f6hFNtn8OvinCP5U5JONi3aSAkkRVx1ZVhkkT8W6VI%3d" class="link-card" target="_blank">GO DASH</a>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
