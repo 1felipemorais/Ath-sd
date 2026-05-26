@@ -3,115 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workspace | Links Rápidos</title>
+    <title>Portal de Links</title>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --hover-bg: #334155;
-        }
-
+        /* Estilos básicos para deixar a página com visual moderno */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
             margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            justify-content: center;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
         }
 
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-
+        /* Barra superior */
         header {
-            text-align: center;
-            margin-bottom: 40px;
+            background-color: #0A3465;
+            color: white;
+            padding: 5px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
-        h1 {
-            margin: 0 0 10px 0;
-            color: var(--accent);
-        }
-
-        p {
-            color: var(--text-muted);
+        header h1 {
             margin: 0;
+            font-size: 1.5rem;
         }
 
-        .category {
-            margin-bottom: 35px;
+        /* Estilo do seletor de empresas */
+        .seletor-empresa label {
+            margin-right: 10px;
+            font-weight: bold;
         }
 
-        .category h2 {
-            font-size: 1.2rem;
-            border-bottom: 1px solid var(--card-bg);
+        .seletor-empresa select {
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Container principal */
+        main {
+            padding: 20px 30px;
+        }
+
+        /* Controle das seções por empresa */
+        .secao-empresa {
+            display: none; /* Escondido por padrão */
+        }
+
+        .secao-empresa.ativo {
+            display: block; /* Mostra a empresa selecionada */
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* Títulos das Categorias */
+        .titulo-categoria {
+            text-align: center;
+            color: #0A3465;
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #ebebeb;
             padding-bottom: 10px;
-            margin-bottom: 15px;
-            color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .links-grid {
+        /* CORREÇÃO: Área modificada para CSS Grid (Garante quebra exata a cada 4 itens) */
+        .container-links {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(4, 140px); /* Força o limite máximo de 4 colunas */
+            justify-content: center; /* Centraliza o bloco na tela */
+            gap: 20px;
         }
 
-        .link-card {
-            background-color: var(--card-bg);
-            color: var(--text-main);
+        /* Responsividade automática para telas menores (Tablets e Celulares) */
+        @media (max-width: 680px) {
+            .container-links {
+                grid-template-columns: repeat(2, 140px); /* Passa para 2 itens por linha */
+            }
+        }
+        @media (max-width: 360px) {
+            .container-links {
+                grid-template-columns: repeat(1, 140px); /* Passa para 1 item por linha em telas muito pequenas */
+            }
+        }
+
+        /* Estilo de cada "botão" de link com imagem */
+        .cartao-link {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
             text-decoration: none;
-            padding: 16px 20px;
-            border-radius: 8px;
+            color: #2c3e50;
             font-weight: 500;
-            transition: all 0.2s ease;
-            border: 1px solid transparent;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.2s;
+            width: 150px; /* Largura fixa para manter o padrão */
+            box-sizing: border-box; /* Garante que as bordas internos não deformem o grid */
+            display: flex;
+            flex-direction: column; /* Organiza imagem em cima e texto embaixo */
+            align-items: center; /* Centraliza o conteúdo dentro do cartão */
+            text-align: center;
         }
 
-        .link-card:hover {
-            background-color: var(--hover-bg);
-            border-color: var(--accent);
+        .cartao-link:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Estilo do espaço para a imagem */
+        .cartao-link img {
+            width: 64px;
+            height: 64px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background-color: #ecf0f1; /* Cor de fundo provisória */
+        }
+
+        /* Animação suave na troca de tela */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <h1>ATHENA SAÚDE</h1>
-            <p>Links rápidos e ferramentas de uso diário</p>
-        </header>
+    <header>
+        <h1><img src="img/logo-s-fundo.png" alt="" height="70px"></h1>
+        <div class="seletor-empresa">
+            <label for="empresa">Selecione a Empresa:</label>
+            <select id="empresa" onchange="filtrarLinks()">
+                <option value="empresa1">VITÓRIA APART HOSP</option>
+                <option value="empresa2">VAH - HOMOLOG</option>
+                <option value="empresa3">SUL</option>
+            </select>
+        </div>
+    </header>
 
-        <!-- Categoria 1 -->
-        <section class="category">
-            <h2>Sistema MV</h2>
-            <div class="links-grid">
-                <a href="https://mvsoul.athenasaude.com.br/soul-mv/" class="link-card" target="_blank">SOUL MV</a>
-                <a href="https://mvpep.athenasaude.com.br/mvpep" class="link-card" target="_blank">MV PEP</a>
-                <a href="https://mvpep.athenasaude.com.br/mvtotemsenha/" class="link-card" target="_blank">MV TOTEM</a>
-                <a href="https://mvpep.athenasaude.com.br/mvsacr/" class="link-card" target="_blank">MV SACR</a>
-                <a href="https://mvpep.athenasaude.com.br/mvpainel/index.html" class="link-card" target="_blank">MV SACR</a>
+    <main>
+        <div id="empresa1" class="secao-empresa ativo">
+            
+            <h2 class="titulo-categoria">MV SISTEMAS</h2>
+            <div class="container-links">
+                <a href="https://mv.athenasaude.com.br/mvautenticador-cas/login?service=https%3A%2F%2Fmv.athenasaude.com.br%3A443%2Fsoul-mv%2Fcas" target="_blank" class="cartao-link">
+                    <img src="img/logo-mv.png" alt="Ícone ERP">
+                    <span>Soul MV</span>
+                </a>
+                <a href="https://mvpep.athenasaude.com.br/mvpep/5/pt-BR/#/" target="_blank" class="cartao-link">
+                    <img src="img/mv-pep.png" alt="Ícone Email">
+                    <span>MV PEP</span>
+                </a>
+                <a href="https://mvgodash.athenasaude.com.br/GoDash/Privado/Default.aspx?chave=4%2f6hFNtn8OvinCP5U5JONi3aSAkkRVx1ZVhkkT8W6VI%3d" target="_blank" class="cartao-link">
+                    <img src="img/godash.png" alt="Ícone Email">
+                    <span>GO Dash</span>
+                </a>
+                <a href="https://mvpep.athenasaude.com.br/mvtotemsenha" target="_blank" class="cartao-link">
+                    <img src="img/totem.png" alt="Ícone Email">
+                    <span>MV Totem</span>
+                </a>
+                <a href="https://mvpep.athenasaude.com.br/mvpainel" target="_blank" class="cartao-link">
+                    <img src="img/painel.png" alt="Ícone Email">
+                    <span>Painel MV</span>
+                </a>
+                <a href="https://mvpep.athenasaude.com.br/mvsacr" target="_blank" class="cartao-link">
+                    <img src="img/risco.png" alt="Ícone Email">
+                    <span>MV Sacr</span>
+                </a>
+                <a href="https://mvpep.athenasaude.com.br/mveditor" target="_blank" class="cartao-link">
+                    <img src="img/documento.png" alt="Ícone Email">
+                    <span>MV Editor</span>
+                </a>
             </div>
-        </section>
 
-        <!-- Categoria 2 -->
-        <section class="category">
-            <h2>Gestão & Projetos</h2>
-            <div class="links-grid">
-                <a href="https://mvreport.athenasaude.com.br/report-designer/" class="link-card" target="_blank">REPORT MV</a>
-                <a href="https://mvgodash.athenasaude.com.br/GoDash/Privado/Default.aspx?chave=4%2f6hFNtn8OvinCP5U5JONi3aSAkkRVx1ZVhkkT8W6VI%3d" class="link-card" target="_blank">GO DASH</a>
+            <h2 class="titulo-categoria">SISTEMAS INTERNOS</h2>
+            <div class="container-links">
+                <a href="http://10.1.0.51:8080/pce/selecionarSetor.xhtml" target="_blank" class="cartao-link">
+                    <img src="img/vah.jpg" alt="Ícone Relatórios">
+                    <span>PCE</span>
+                </a>
+                <a href="http://10.1.0.51:9080/regulacao/login.xhtml" target="_blank" class="cartao-link">
+                    <img src="img/vah.jpg" alt="Ícone Relatórios">
+                    <span>Regulação Acesso</span>
+                </a>
+                <a href="http://10.1.0.105:8080/relvah/login.xhtml" target="_blank" class="cartao-link">
+                    <img src="img/vah.jpg" alt="Ícone Relatórios">
+                    <span>Gerador De Relatórios</span>
+                </a>
+                <a href="http://10.1.0.51:8080/pce/selecionarSetor.xhtml" target="_blank" class="cartao-link">
+                    <img src="img/atena2.jpg" alt="Ícone Relatórios">
+                    <span>OTRS - Abertura De Chamados</span>
+                </a>
             </div>
-        </section>
-    </div>
+        </div>
 
+        <div id="empresa2" class="secao-empresa">
+            
+            <h2 class="titulo-categoria">Geral</h2>
+            <div class="container-links">
+                <a href="#" target="_blank" class="cartao-link">
+                    <img src="https://via.placeholder.com/64" alt="Ícone Intranet">
+                    <span>Intranet</span>
+                </a>
+                <a href="#" target="_blank" class="cartao-link">
+                    <img src="https://via.placeholder.com/64" alt="Ícone Painel">
+                    <span>Painel de Controle</span>
+                </a>
+            </div>
+
+        </div>
+
+        <div id="empresa3" class="secao-empresa">
+            
+            <h2 class="titulo-categoria">Atendimento ao Cliente</h2>
+            <div class="container-links">
+                <a href="#" target="_blank" class="cartao-link">
+                    <img src="https://via.placeholder.com/64" alt="Ícone Portal">
+                    <span>Portal do Cliente</span>
+                </a>
+                <a href="#" target="_blank" class="cartao-link">
+                    <img src="https://via.placeholder.com/64" alt="Ícone Suporte">
+                    <span>Suporte Técnico</span>
+                </a>
+            </div>
+
+            <h2 class="titulo-categoria">Base de Conhecimento</h2>
+            <div class="container-links">
+                <a href="#" target="_blank" class="cartao-link">
+                    <img src="https://via.placeholder.com/64" alt="Ícone Documentação">
+                    <span>Documentação</span>
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        function filtrarLinks() {
+            // Pega o valor selecionado no dropdown (ex: 'empresa2')
+            const empresaSelecionada = document.getElementById('empresa').value;
+            
+            // Pega todas as seções de empresas
+            const todasAsSecoes = document.querySelectorAll('.secao-empresa');
+            
+            // Passa por cada seção ligando ou desligando com base no ID
+            todasAsSecoes.forEach(secao => {
+                if (secao.id === empresaSelecionada) {
+                    secao.classList.add('ativo'); // Mostra a seção correta
+                } else {
+                    secao.classList.remove('ativo'); // Esconde as outras
+                }
+            });
+        }
+    </script>
 </body>
 </html>
